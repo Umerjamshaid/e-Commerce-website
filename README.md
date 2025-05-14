@@ -1,11 +1,13 @@
 <p align="center">
-  <img src="https://github.com/yourusername/django-ecommerce/blob/main/docs/banner.png?raw=true" alt="DjangoShop Pro Banner">
+  <img src="https://images.pexels.com/photos/326503/pexels-photo-326503.jpeg?auto=compress&cs=tinysrgb&w=1280&h=640&dpr=1">
 </p>
 
 # 🛍️ DjangoShop Pro - Modern E-Commerce Platform
-![Django Version](https://img.shields.io/badge/django-4.2-brightgreen)
-![License](https://img.shields.io/badge/license-MIT-blue)
-![Python Version](https://img.shields.io/badge/python-3.10%2B-blue)
+
+[![Django Version](https://img.shields.io/badge/django-4.2-brightgreen)]()
+[![License](https://img.shields.io/badge/license-MIT-blue)]()
+[![Python Version](https://img.shields.io/badge/python-3.10%2B-blue)]()
+
 
 A full-featured e-commerce platform built with Django, offering a seamless shopping experience with modern design and robust functionality.
 
