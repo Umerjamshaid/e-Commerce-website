@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://images.pexels.com/photos/326503/pexels-photo-326503.jpeg?auto=compress&cs=tinysrgb&w=1280&h=640&dpr=1">
+  <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZDIxNzBsZW10OGh4NHNsYm9kdDU4ZG5sc2Z2dW80ZjI1a2xjeWZkZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NlVbLJeCTA7El1HwgE/giphy.gif">
 </p>
 
 # 🛍️ DjangoShop Pro - Modern E-Commerce Platform
