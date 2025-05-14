@@ -1,0 +1,1070 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Store Settings</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+      .sidebar {
+        min-height: 100vh;
+        background: #212529;
+      }
+      .sidebar .nav-link {
+        color: rgba(255, 255, 255, 0.75);
+      }
+      .sidebar .nav-link:hover, .sidebar .nav-link.active {
+        color: white;
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .sidebar .nav-link i {
+        margin-right: 8px;
+      }
+      .settings-card {
+        border-left: 4px solid #0d6efd;
+        margin-bottom: 1.5rem;
+      }
+      .settings-section {
+        margin-bottom: 2.5rem;
+      }
+      .settings-section h5 {
+        border-bottom: 1px solid #dee2e6;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+      .form-switch .form-check-input {
+        width: 3em;
+        height: 1.5em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-2 sidebar p-0">
+          <div class="p-3">
+            <h4 class="text-white mb-4">Admin Dashboard</h4>
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-box-open"></i> Products</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i> Orders</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-users"></i> Customers</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fas fa-chart-line"></i> Analytics</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="#"><i class="fas fa-cog"></i> Settings</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-md-10 ms-sm-auto p-4">
+          <!-- Page Header -->
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Store Settings</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <button type="button" class="btn btn-sm btn-primary">
+                <i class="fas fa-save me-1"></i> Save All Changes
+              </button>
+            </div>
+          </div>
+          
+          <!-- Settings Tabs -->
+          <ul class="nav nav-tabs mb-4" id="settingsTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="general-tab" data-bs-toggle="tab" data-bs-target="#general" type="button" role="tab">General</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="payment-tab" data-bs-toggle="tab" data-bs-target="#payment" type="button" role="tab">Payments</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="shipping-tab" data-bs-toggle="tab" data-bs-target="#shipping" type="button" role="tab">Shipping</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="tax-tab" data-bs-toggle="tab" data-bs-target="#tax" type="button" role="tab">Tax</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="notifications-tab" data-bs-toggle="tab" data-bs-target="#notifications" type="button" role="tab">Notifications</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="advanced-tab" data-bs-toggle="tab" data-bs-target="#advanced" type="button" role="tab">Advanced</button>
+            </li>
+          </ul>
+          
+          <div class="tab-content" id="settingsTabsContent">
+            <!-- General Settings Tab -->
+            <div class="tab-pane fade show active" id="general" role="tabpanel">
+              <form>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="card settings-card">
+                      <div class="card-header bg-light">
+                        <h5>Store Information</h5>
+                      </div>
+                      <div class="card-body">
+                        <div class="mb-3">
+                          <label for="storeName" class="form-label">Store Name</label>
+                          <input type="text" class="form-control" id="storeName" value="My Awesome Store">
+                        </div>
+                        <div class="mb-3">
+                          <label for="storeEmail" class="form-label">Contact Email</label>
+                          <input type="email" class="form-control" id="storeEmail" value="contact@myawesomestore.com">
+                        </div>
+                        <div class="mb-3">
+                          <label for="storePhone" class="form-label">Contact Phone</label>
+                          <input type="tel" class="form-control" id="storePhone" value="+1 (555) 123-4567">
+                        </div>
+                        <div class="mb-3">
+                          <label for="storeAddress" class="form-label">Physical Address</label>
+                          <textarea class="form-control" id="storeAddress" rows="3">123 Main St, Suite 100
+Anytown, CA 90210
+United States</textarea>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="card settings-card">
+                      <div class="card-header bg-light">
+                        <h5>Store Display</h5>
+                      </div>
+                      <div class="card-body">
+                        <div class="mb-3">
+                          <label for="storeLogo" class="form-label">Store Logo</label>
+                          <input class="form-control" type="file" id="storeLogo">
+                          <div class="mt-2">
+                            <img src="https://dummyimage.com/200x60/dee2e6/6c757d.jpg" alt="Current logo" class="img-thumbnail" style="max-height: 60px;">
+                          </div>
+                        </div>
+                        <div class="mb-3">
+                          <label for="favicon" class="form-label">Favicon</label>
+                          <input class="form-control" type="file" id="favicon">
+                          <div class="mt-2">
+                            <img src="https://dummyimage.com/32x32/dee2e6/6c757d.jpg" alt="Current favicon" class="img-thumbnail">
+                          </div>
+                        </div>
+                        <div class="mb-3">
+                          <label for="timezone" class="form-label">Timezone</label>
+                          <select class="form-select" id="timezone">
+                            <option>(UTC-12:00) International Date Line West</option>
+                            <option>(UTC-11:00) Midway Island, Samoa</option>
+                            <option>(UTC-10:00) Hawaii</option>
+                            <option>(UTC-09:00) Alaska</option>
+                            <option selected>(UTC-08:00) Pacific Time (US & Canada)</option>
+                            <option>(UTC-07:00) Mountain Time (US & Canada)</option>
+                            <option>(UTC-06:00) Central Time (US & Canada)</option>
+                            <option>(UTC-05:00) Eastern Time (US & Canada)</option>
+                            <!-- More timezones would be here -->
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-6">
+                    <div class="card settings-card">
+                      <div class="card-header bg-light">
+                        <h5>Currency & Region</h5>
+                      </div>
+                      <div class="card-body">
+                        <div class="mb-3">
+                          <label for="country" class="form-label">Country</label>
+                          <select class="form-select" id="country">
+                            <option>United States</option>
+                            <option>Canada</option>
+                            <option>United Kingdom</option>
+                            <option>Australia</option>
+                            <option>Germany</option>
+                            <!-- More countries would be here -->
+                          </select>
+                        </div>
+                        <div class="mb-3">
+                          <label for="currency" class="form-label">Currency</label>
+                          <select class="form-select" id="currency">
+                            <option>US Dollar (USD $)</option>
+                            <option>Euro (EUR €)</option>
+                            <option>British Pound (GBP £)</option>
+                            <option>Canadian Dollar (CAD $)</option>
+                            <option>Australian Dollar (AUD $)</option>
+                            <!-- More currencies would be here -->
+                          </select>
+                        </div>
+                        <div class="mb-3">
+                          <label for="weightUnit" class="form-label">Weight Unit</label>
+                          <select class="form-select" id="weightUnit">
+                            <option>Pounds (lb)</option>
+                            <option>Kilograms (kg)</option>
+                            <option>Ounces (oz)</option>
+                            <option>Grams (g)</option>
+                          </select>
+                        </div>
+                        <div class="mb-3">
+                          <label for="dimensionUnit" class="form-label">Dimension Unit</label>
+                          <select class="form-select" id="dimensionUnit">
+                            <option>Inches (in)</option>
+                            <option>Centimeters (cm)</option>
+                            <option>Millimeters (mm)</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="card settings-card">
+                      <div class="card-header bg-light">
+                        <h5>Maintenance Mode</h5>
+                      </div>
+                      <div class="card-body">
+                        <div class="form-check form-switch mb-3">
+                          <input class="form-check-input" type="checkbox" id="maintenanceMode">
+                          <label class="form-check-label" for="maintenanceMode">Enable Maintenance Mode</label>
+                        </div>
+                        <div class="mb-3">
+                          <label for="maintenanceMessage" class="form-label">Maintenance Message</label>
+                          <textarea class="form-control" id="maintenanceMessage" rows="3" disabled>We're currently performing scheduled maintenance. We'll be back shortly. Thank you for your patience.</textarea>
+                        </div>
+                        <div class="mb-3">
+                          <label for="allowedIPs" class="form-label">Allowed IP Addresses (comma separated)</label>
+                          <input type="text" class="form-control" id="allowedIPs" placeholder="192.168.1.1, 203.0.113.5" disabled>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            
+            <!-- Payment Settings Tab -->
+            <div class="tab-pane fade" id="payment" role="tabpanel">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="card settings-card">
+                    <div class="card-header bg-light">
+                      <h5>Payment Methods</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="creditCardEnabled" checked>
+                        <label class="form-check-label" for="creditCardEnabled">Credit/Debit Cards</label>
+                      </div>
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="paypalEnabled" checked>
+                        <label class="form-check-label" for="paypalEnabled">PayPal</label>
+                      </div>
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="applePayEnabled">
+                        <label class="form-check-label" for="applePayEnabled">Apple Pay</label>
+                      </div>
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="googlePayEnabled">
+                        <label class="form-check-label" for="googlePayEnabled">Google Pay</label>
+                      </div>
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="bankTransferEnabled">
+                        <label class="form-check-label" for="bankTransferEnabled">Bank Transfer</label>
+                      </div>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="cashOnDeliveryEnabled">
+                        <label class="form-check-label" for="cashOnDeliveryEnabled">Cash on Delivery</label>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="card settings-card">
+                    <div class="card-header bg-light">
+                      <h5>Payment Gateway - Stripe</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="stripeEnabled" checked>
+                        <label class="form-check-label" for="stripeEnabled">Enable Stripe Payments</label>
+                      </div>
+                      <div class="mb-3">
+                        <label for="stripePublishableKey" class="form-label">Publishable Key</label>
+                        <input type="text" class="form-control" id="stripePublishableKey" value="pk_test_51J...">
+                      </div>
+                      <div class="mb-3">
+                        <label for="stripeSecretKey" class="form-label">Secret Key</label>
+                        <input type="password" class="form-control" id="stripeSecretKey" value="sk_test_51J...">
+                      </div>
+                      <div class="mb-3">
+                        <label for="stripeWebhookSecret" class="form-label">Webhook Secret</label>
+                        <input type="password" class="form-control" id="stripeWebhookSecret" value="whsec_...">
+                      </div>
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="stripeTestMode" checked>
+                        <label class="form-check-label" for="stripeTestMode">Test Mode</label>
+                      </div>
+                      <button class="btn btn-outline-secondary btn-sm">Test Connection</button>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="card settings-card">
+                    <div class="card-header bg-light">
+                      <h5>Payment Gateway - PayPal</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="paypalGatewayEnabled" checked>
+                        <label class="form-check-label" for="paypalGatewayEnabled">Enable PayPal</label>
+                      </div>
+                      <div class="mb-3">
+                        <label for="paypalClientId" class="form-label">Client ID</label>
+                        <input type="text" class="form-control" id="paypalClientId" value="AeA...">
+                      </div>
+                      <div class="mb-3">
+                        <label for="paypalSecret" class="form-label">Secret Key</label>
+                        <input type="password" class="form-control" id="paypalSecret" value="EC...">
+                      </div>
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="paypalSandbox" checked>
+                        <label class="form-check-label" for="paypalSandbox">Sandbox Mode</label>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Payment Action</label>
+                        <select class="form-select" id="paypalPaymentAction">
+                          <option value="authorize">Authorize only</option>
+                          <option value="capture" selected>Capture payment immediately</option>
+                        </select>
+                      </div>
+                      <button class="btn btn-outline-secondary btn-sm">Test Connection</button>
+                    </div>
+                  </div>
+                  
+                  <div class="card settings-card">
+                    <div class="card-header bg-light">
+                      <h5>Payment Restrictions</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="mb-3">
+                        <label class="form-label">Minimum Order Amount</label>
+                        <div class="input-group">
+                          <span class="input-group-text">$</span>
+                          <input type="number" class="form-control" value="0.00" min="0" step="0.01">
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Maximum Order Amount</label>
+                        <div class="input-group">
+                          <span class="input-group-text">$</span>
+                          <input type="number" class="form-control" value="10000.00" min="0" step="0.01">
+                        </div>
+                      </div>
+                      <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="restrictCountries">
+                        <label class="form-check-label" for="restrictCountries">Restrict payment methods by country</label>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Allowed Countries</label>
+                        <select class="form-select" multiple disabled>
+                          <option selected>United States</option>
+                          <option>Canada</option>
+                          <option>United Kingdom</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Shipping Settings Tab -->
+            <div class="tab-pane fade" id="shipping" role="tabpanel">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="card settings-card">
+                    <div class="card-header bg-light">
+                      <h5>Shipping Zones</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="mb-3">
+                        <button class="btn btn-sm btn-primary mb-3">Add Shipping Zone</button>
+                        <div class="list-group">
+                          <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Domestic (United States)
+                            <span class="badge bg-primary rounded-pill">3 methods</span>
+                          </a>
+                          <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            International
+                            <span class="badge bg-primary rounded-pill">2 methods</span>
+                          </a>
+                          <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Europe
+                            <span class="badge bg-primary rounded-pill">1 method</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="card settings-card">
+                    <div class="card-header bg-light">
+                      <h5>Shipping Methods</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="freeShippingEnabled" checked>
+                        <label class="form-check-label" for="freeShippingEnabled">Enable Free Shipping</label>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Free Shipping Minimum Order</label>
+                        <div class="input-group">
+                          <span class="input-group-text">$</span>
+                          <input type="number" class="form-control" value="50.00" min="0" step="0.01">
+                        </div>
+                      </div>
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="flatRateEnabled" checked>
+                        <label class="form-check-label" for="flatRateEnabled">Enable Flat Rate Shipping</label>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Default Flat Rate</label>
+                        <div class="input-group">
+                          <span class="input-group-text">$</span>
+                          <input type="number" class="form-control" value="5.99" min="0" step="0.01">
+                        </div>
+                      </div>
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="localPickupEnabled">
+                        <label class="form-check-label" for="localPickupEnabled">Enable Local Pickup</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="card settings-card">
+                    <div class="card-header bg-light">
+                      <h5>Shipping Options</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="mb-3">
+                        <label class="form-label">Default Package Dimensions</label>
+                        <div class="row g-2">
+                          <div class="col-4">
+                            <label class="form-label small">Length</label>
+                            <div class="input-group">
+                              <input type="number" class="form-control" value="12">
+                              <span class="input-group-text">in</span>
+                            </div>
+                          </div>
+                          <div class="col-4">
+                            <label class="form-label small">Width</label>
+                            <div class="input-group">
+                              <input type="number" class="form-control" value="8">
+                              <span class="input-group-text">in</span>
+                            </div>
+                          </div>
+                          <div class="col-4">
+                            <label class="form-label small">Height</label>
+                            <div class="input-group">
+                              <input type="number" class="form-control" value="4">
+                              <span class="input-group-text">in</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Default Package Weight</label>
+                        <div class="input-group">
+                          <input type="number" class="form-control" value="1.5" step="0.1">
+                          <span class="input-group-text">lb</span>
+                        </div>
+                      </div>
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="shipToPOBox">
+                        <label class="form-check-label" for="shipToPOBox">Allow shipping to PO Boxes</label>
+                      </div>
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="shipToMilitary">
+                        <label class="form-check-label" for="shipToMilitary">Allow shipping to military addresses</label>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="card settings-card">
+                    <div class="card-header bg-light">
+                      <h5>Shipping Labels</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="labelAutoPurchase">
+                        <label class="form-check-label" for="labelAutoPurchase">Automatically purchase shipping labels</label>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Default Shipping Carrier</label>
+                        <select class="form-select">
+                          <option>USPS</option>
+                          <option>FedEx</option>
+                          <option>UPS</option>
+                          <option>DHL</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Default Shipping Service</label>
+                        <select class="form-select">
+                          <option>Priority Mail</option>
+                          <option>First Class</option>
+                          <option>Ground</option>
+                          <option>Express</option>
+                        </select>
+                      </div>
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="labelInsurance">
+                        <label class="form-check-label" for="labelInsurance">Include insurance on labels</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Tax Settings Tab -->
+            <div class="tab-pane fade" id="tax" role="tabpanel">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="card settings-card">
+                    <div class="card-header bg-light">
+                      <h5>Tax Settings</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="taxEnabled" checked>
+                        <label class="form-check-label" for="taxEnabled">Enable Taxes</label>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Prices Entered With Tax</label>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="taxDisplay" id="taxInclusive" checked>
+                          <label class="form-check-label" for="taxInclusive">Yes, I will enter prices inclusive of tax</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="taxDisplay" id="taxExclusive">
+                          <label class="form-check-label" for="taxExclusive">No, I will enter prices exclusive of tax</label>
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Calculate Tax Based On</label>
+                        <select class="form-select">
+                          <option>Customer shipping address</option>
+                          <option>Customer billing address</option>
+                          <option>Shop base address</option>
+                        </select>
+                      </div>
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="taxShipping">
+                        <label class="form-check-label" for="taxShipping">Enable tax on shipping</label>
+                      </div>
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="taxRound">
+                        <label class="form-check-label" for="taxRound">Round tax at subtotal level</label>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="card settings-card">
+                    <div class="card-header bg-light">
+                      <h5>Standard Rates</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-sm">
+                          <thead>
+                            <tr>
+                              <th>Country</th>
+                              <th>State</th>
+                              <th>Rate (%)</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>United States</td>
+                              <td>California</td>
+                              <td>7.25</td>
+                              <td class="text-end">
+                                <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>United States</td>
+                              <td>New York</td>
+                              <td>8.875</td>
+                              <td class="text-end">
+                                <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Canada</td>
+                              <td>Ontario</td>
+                              <td>13.00</td>
+                              <td class="text-end">
+                                <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <button class="btn btn-sm btn-primary">Add Tax Rate</button>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="card settings-card">
+                    <div class="card-header bg-light">
+                      <h5>Tax Classes</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="mb-3">
+                        <label class="form-label">Default Tax Class</label>
+                        <select class="form-select">
+                          <option>Standard</option>
+                          <option>Reduced Rate</option>
+                          <option>Zero Rate</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <button class="btn btn-sm btn-primary mb-2">Add Tax Class</button>
+                        <div class="list-group">
+                          <div class="list-group-item d-flex justify-content-between align-items-center">
+                            Standard
+                            <div>
+                              <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                              <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                            </div>
+                          </div>
+                          <div class="list-group-item d-flex justify-content-between align-items-center">
+                            Reduced Rate
+                            <div>
+                              <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                              <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                            </div>
+                          </div>
+                          <div class="list-group-item d-flex justify-content-between align-items-center">
+                            Zero Rate
+                            <div>
+                              <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                              <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="card settings-card">
+                    <div class="card-header bg-light">
+                      <h5>Tax Display</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="mb-3">
+                        <label class="form-label">Display Prices in Shop</label>
+                        <select class="form-select">
+                          <option>Including tax</option>
+                          <option selected>Excluding tax</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Display Prices During Cart/Checkout</label>
+                        <select class="form-select">
+                          <option>Including tax</option>
+                          <option selected>Excluding tax</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Price Display Suffix</label>
+                        <input type="text" class="form-control" value="(ex. VAT)">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Notification Settings Tab -->
+            <div class="tab-pane fade" id="notifications" role="tabpanel">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="card settings-card">
+                    <div class="card-header bg-light">
+                      <h5>Email Notifications</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="newOrderEmail" checked>
+                        <label class="form-check-label" for="newOrderEmail">New order notifications</label>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">New Order Recipients</label>
+                        <input type="text" class="form-control" value="admin@store.com, sales@store.com">
+                        <div class="form-text">Comma separate email addresses</div>
+                      </div>
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="lowStockEmail" checked>
+                        <label class="form-check-label" for="lowStockEmail">Low stock notifications</label>
+                      </div>
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="backorderEmail" checked>
+                        <label class="form-check-label" for="backorderEmail">Backorder notifications</label>
+                      </div>
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="cancelledOrderEmail" checked>
+                        <label class="form-check-label" for="cancelledOrderEmail">Cancelled order notifications</label>
+                      </div>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="failedOrderEmail" checked>
+                        <label class="form-check-label" for="failedOrderEmail">Failed order notifications</label>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="card settings-card">
+                    <div class="card-header bg-light">
+                      <h5>Customer Notifications</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="orderConfirmationEmail" checked>
+                        <label class="form-check-label" for="orderConfirmationEmail">Order confirmation</label>
+                      </div>
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="orderStatusEmail" checked>
+                        <label class="form-check-label" for="orderStatusEmail">Order status changes</label>
+                      </div>
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="shippingNotificationEmail" checked>
+                        <label class="form-check-label" for="shippingNotificationEmail">Shipping notifications</label>
+                      </div>
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="completedOrderEmail" checked>
+                        <label class="form-check-label" for="completedOrderEmail">Completed order</label>
+                      </div>
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="refundEmail" checked>
+                        <label class="form-check-label" for="refundEmail">Refund notifications</label>
+                      </div>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="accountEmail" checked>
+                        <label class="form-check-label" for="accountEmail">Account creation</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="card settings-card">
+                    <div class="card-header bg-light">
+                      <h5>Email Sender</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="mb-3">
+                        <label class="form-label">From Name</label>
+                        <input type="text" class="form-control" value="My Awesome Store">
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">From Email</label>
+                        <input type="email" class="form-control" value="noreply@myawesomestore.com">
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Email Template</label>
+                        <select class="form-select">
+                          <option>Default</option>
+                          <option>Minimal</option>
+                          <option>Modern</option>
+                          <option>Classic</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Footer Text</label>
+                        <textarea class="form-control" rows="3">© 2023 My Awesome Store. All rights reserved.</textarea>
+                      </div>
+                      <button class="btn btn-outline-secondary">Send Test Email</button>
+                    </div>
+                  </div>
+                  
+                  <div class="card settings-card">
+                    <div class="card-header bg-light">
+                      <h5>SMS Notifications</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="smsEnabled">
+                        <label class="form-check-label" for="smsEnabled">Enable SMS Notifications</label>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">SMS Provider</label>
+                        <select class="form-select" disabled>
+                          <option>Twilio</option>
+                          <option>Nexmo</option>
+                          <option>Plivo</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Account SID</label>
+                        <input type="text" class="form-control" disabled>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Auth Token</label>
+                        <input type="password" class="form-control" disabled>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">From Number</label>
+                        <input type="text" class="form-control" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Advanced Settings Tab -->
+            <div class="tab-pane fade" id="advanced" role="tabpanel">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="card settings-card">
+                    <div class="card-header bg-light">
+                      <h5>Store API</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="restApiEnabled" checked>
+                        <label class="form-check-label" for="restApiEnabled">Enable REST API</label>
+                      </div>
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="restApiKeys">
+                        <label class="form-check-label" for="restApiKeys">Require API Keys</label>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">API Rate Limit</label>
+                        <div class="input-group">
+                          <input type="number" class="form-control" value="100">
+                          <span class="input-group-text">requests per minute</span>
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">API Keys</label>
+                        <button class="btn btn-sm btn-primary mb-2">Generate New Key</button>
+                        <div class="table-responsive">
+                          <table class="table table-sm">
+                            <thead>
+                              <tr>
+                                <th>Description</th>
+                                <th>Permissions</th>
+                                <th>Last Used</th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Mobile App</td>
+                                <td>Read/Write</td>
+                                <td>Today</td>
+                                <td class="text-end">
+                                  <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                  <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Analytics Service</td>
+                                <td>Read Only</td>
+                                <td>2 days ago</td>
+                                <td class="text-end">
+                                  <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-edit"></i></button>
+                                  <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="card settings-card">
+                    <div class="card-header bg-light">
+                      <h5>Data Handling</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="personalizationEnabled" checked>
+                        <label class="form-check-label" for="personalizationEnabled">Enable Personalization</label>
+                      </div>
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="analyticsEnabled" checked>
+                        <label class="form-check-label" for="analyticsEnabled">Enable Analytics Tracking</label>
+                      </div>
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="cookiesEnabled" checked>
+                        <label class="form-check-label" for="cookiesEnabled">Enable Cookies</label>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Data Retention Period</label>
+                        <select class="form-select">
+                          <option>30 days</option>
+                          <option>90 days</option>
+                          <option selected>1 year</option>
+                          <option>3 years</option>
+                          <option>Indefinitely</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Anonymize IP Addresses</label>
+                        <select class="form-select">
+                          <option>Never</option>
+                          <option selected>After 24 hours</option>
+                          <option>After 7 days</option>
+                          <option>After 30 days</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="card settings-card">
+                    <div class="card-header bg-light">
+                      <h5>System</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="mb-3">
+                        <label class="form-label">System Status</label>
+                        <div class="alert alert-success mb-0">
+                          <i class="fas fa-check-circle me-2"></i> All systems operational
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Last Backup</label>
+                        <div class="input-group">
+                          <input type="text" class="form-control" value="2023-06-15 02:00:00" readonly>
+                          <button class="btn btn-outline-secondary">Run Backup Now</button>
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Backup Frequency</label>
+                        <select class="form-select">
+                          <option>Daily</option>
+                          <option selected>Weekly</option>
+                          <option>Monthly</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Backup Location</label>
+                        <select class="form-select">
+                          <option>Server</option>
+                          <option>Amazon S3</option>
+                          <option>Google Drive</option>
+                          <option>Dropbox</option>
+                        </select>
+                      </div>
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="autoUpdates">
+                        <label class="form-check-label" for="autoUpdates">Enable Automatic Updates</label>
+                      </div>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="errorReporting" checked>
+                        <label class="form-check-label" for="errorReporting">Enable Error Reporting</label>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="card settings-card">
+                    <div class="card-header bg-light">
+                      <h5>Security</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="mb-3">
+                        <label class="form-label">Force HTTPS</label>
+                        <select class="form-select">
+                          <option>Disabled</option>
+                          <option selected>Enabled for checkout</option>
+                          <option>Enabled for entire store</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Password Strength</label>
+                        <select class="form-select">
+                          <option>Low (minimum 6 characters)</option>
+                          <option selected>Medium (minimum 8 characters with letters and numbers)</option>
+                          <option>High (minimum 10 characters with mixed case, numbers and symbols)</option>
+                        </select>
+                      </div>
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="twoFactorAuth">
+                        <label class="form-check-label" for="twoFactorAuth">Require Two-Factor Authentication for Admin</label>
+                      </div>
+                      <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="loginCaptcha">
+                        <label class="form-check-label" for="loginCaptcha">Enable CAPTCHA on Login</label>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Failed Login Attempts</label>
+                        <div class="input-group">
+                          <input type="number" class="form-control" value="5">
+                          <span class="input-group-text">attempts before lockout</span>
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Lockout Duration</label>
+                        <select class="form-select">
+                          <option>5 minutes</option>
+                          <option selected>30 minutes</option>
+                          <option>1 hour</option>
+                          <option>24 hours</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Enable/disable maintenance mode fields
+      document.getElementById('maintenanceMode').addEventListener('change', function() {
+        const maintenanceFields = [
+          document.getElementById('maintenanceMessage'),
+          document.getElementById('allowedIPs')
+        ];
+        
+        maintenanceFields.forEach(field => {
+          field.disabled = !this.checked;
+        });
+      });
+      
+      // Enable/disable SMS settings
+      document.getElementById('smsEnabled').addEventListener('change', function() {
+        const smsFields = document.querySelectorAll('#notifications [disabled]');
+        
+        smsFields.forEach(field => {
+          field.disabled = !this.checked;
+        });
+      });
+      
+      // Enable/disable country restrictions
+      document.getElementById('restrictCountries').addEventListener('change', function() {
+        document.querySelector('#payment select[multiple]').disabled = !this.checked;
+      });
+    </script>
+  </body>
+</html>

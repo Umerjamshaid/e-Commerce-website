@@ -1,0 +1,322 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Category Header -->
+<header class="bg-dark py-5 position-relative">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">{{ category.name }}</h1>
+            <p class="lead fw-normal text-white-50 mb-0">{{ category.description }}</p>
+        </div>
+        <!-- Breadcrumb Navigation -->
+        <nav aria-label="breadcrumb" class="mt-4">
+            <ol class="breadcrumb justify-content-center">
+                <li class="breadcrumb-item"><a href="{% url 'store:home' %}" class="text-white">Home</a></li>
+                <li class="breadcrumb-item active text-white-50" aria-current="page">{{ category.name }}</li>
+            </ol>
+        </nav>
+    </div>
+</header>
+
+<!-- Section-->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row">
+            <!-- Enhanced Sidebar Filters -->
+            <div class="col-lg-3 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="mb-0">Filters</h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Price Filter -->
+                        <div class="mb-4">
+                            <h6 class="mb-3">Price Range</h6>
+                            <div class="range-slider">
+                                <input type="range" class="form-range" min="0" max="1000" step="10" id="priceMin" value="0">
+                                <input type="range" class="form-range" min="0" max="1000" step="10" id="priceMax" value="500">
+                                <div class="d-flex justify-content-between mt-2">
+                                    <span>$<span id="priceMinValue">0</span></span>
+                                    <span>$<span id="priceMaxValue">500</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Availability Filter -->
+                        <div class="mb-4">
+                            <h6 class="mb-3">Availability</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="inStock" checked>
+                                <label class="form-check-label" for="inStock">In Stock ({{ in_stock_count }})</label>
+                            </div>
+                        </div>
+                        
+                        <!-- Rating Filter -->
+                        <div class="mb-4">
+                            <h6 class="mb-3">Customer Rating</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="rating4">
+                                <label class="form-check-label" for="rating4">
+                                    ★★★★☆ & Above
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="rating3">
+                                <label class="form-check-label" for="rating3">
+                                    ★★★☆☆ & Above
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Brand Filter -->
+                        <div class="mb-4">
+                            <h6 class="mb-3">Brand</h6>
+                            {% for brand in brands %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="brand{{ brand.id }}">
+                                <label class="form-check-label" for="brand{{ brand.id }}">{{ brand.name }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <div class="d-grid gap-2 mt-4">
+                            <button class="btn btn-dark" id="applyFilters">Apply Filters</button>
+                            <button class="btn btn-outline-secondary" id="resetFilters">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Enhanced Products Section -->
+            <div class="col-lg-9">
+                <!-- Sorting and Results Header -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <span class="text-muted">{{ products|length }} results found</span>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <select class="form-select form-select-sm w-auto d-inline" id="sortBy">
+                            <option value="price_asc">Price: Low to High</option>
+                            <option value="price_desc">Price: High to Low</option>
+                            <option value="rating">Top Rated</option>
+                            <option value="newest">Newest Arrivals</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Products Grid with Enhanced Cards -->
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    {% for product in products %}
+                    <div class="col mb-5">
+                        <div class="card h-100 shadow-sm">
+                            <!-- Product Badges -->
+                            <div class="card-badges">
+                                {% if product.is_sale %}
+                                <span class="badge bg-danger">Sale</span>
+                                {% endif %}
+                                {% if product.is_new %}
+                                <span class="badge bg-success">New</span>
+                                {% endif %}
+                            </div>
+
+                            <!-- Product Image with Quick View -->
+                            <div class="position-relative">
+                                <img class="card-img-top" src="{{ product.image.url }}" alt="{{ product.name }}" loading="lazy">
+                                <div class="quick-view-overlay">
+                                    <button class="btn btn-dark btn-sm quick-view-btn" data-product-id="{{ product.id }}">
+                                        Quick View
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Product Details -->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <h5 class="fw-bolder">{{ product.name }}</h5>
+                                    <div class="d-flex justify-content-center small text-warning mb-2">
+                                        {% for _ in "12345" %}
+                                            {% if forloop.counter <= product.rating %}
+                                                ★
+                                            {% else %}
+                                                ☆
+                                            {% endif %}
+                                        {% endfor %}
+                                        <span class="text-muted ms-2">({{ product.review_count }})</span>
+                                    </div>
+                                    
+                                    <div class="pricing">
+                                        {% if product.is_sale %}
+                                        <span class="text-muted text-decoration-line-through">${{ product.price }}</span>
+                                        <span class="text-danger fw-bold ms-2">${{ product.sales_price }}</span>
+                                        {% else %}
+                                        <span class="text-dark fw-bold">${{ product.price }}</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Product Actions -->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <a class="btn btn-outline-dark mt-auto" href="{% url 'store:product' product.id %}">
+                                        View Details
+                                    </a>
+                                    <button class="btn btn-outline-danger mt-auto wishlist-btn" data-product-id="{{ product.id }}">
+                                        <i class="bi bi-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-12 text-center py-5">
+                        <h4>No products found in this category.</h4>
+                        <a href="{% url 'store:home' %}" class="btn btn-dark mt-3">Continue Shopping</a>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Pagination -->
+                <nav aria-label="Page navigation" class="mt-5">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick View Modal -->
+<div class="modal fade" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="quickViewModalLabel">Product Quick View</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Content loaded via AJAX -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        transition: all 0.3s ease;
+        border-radius: 0.5rem;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+    }
+    .card-badges {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 2;
+    }
+    .quick-view-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.5);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .card:hover .quick-view-overlay {
+        opacity: 1;
+    }
+    .quick-view-btn {
+        transform: translateY(20px);
+        transition: transform 0.3s ease;
+    }
+    .card:hover .quick-view-btn {
+        transform: translateY(0);
+    }
+    .wishlist-btn:hover {
+        color: #dc3545 !important;
+    }
+    .form-range::-webkit-slider-thumb {
+        background: #212529;
+    }
+</style>
+
+<script>
+    // Enhanced Filter Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        // Price Range Slider
+        const priceMin = document.getElementById('priceMin');
+        const priceMax = document.getElementById('priceMax');
+        const priceMinValue = document.getElementById('priceMinValue');
+        const priceMaxValue = document.getElementById('priceMaxValue');
+        
+        const updatePriceValues = () => {
+            priceMinValue.textContent = priceMin.value;
+            priceMaxValue.textContent = priceMax.value;
+        };
+        
+        [priceMin, priceMax].forEach(input => {
+            input.addEventListener('input', updatePriceValues);
+        });
+
+        // Filter Application
+        document.getElementById('applyFilters').addEventListener('click', function() {
+            // Implement AJAX filtering here
+            console.log('Applying filters...');
+        });
+
+        // Reset Filters
+        document.getElementById('resetFilters').addEventListener('click', function() {
+            priceMin.value = 0;
+            priceMax.value = 500;
+            updatePriceValues();
+            // Reset other filters
+        });
+
+        // Sorting Functionality
+        document.getElementById('sortBy').addEventListener('change', function() {
+            // Implement sorting logic
+            console.log('Sorting by:', this.value);
+        });
+
+        // Quick View Modal
+        document.querySelectorAll('.quick-view-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.dataset.productId;
+                fetch(`/products/${productId}/quick-view/`)
+                    .then(response => response.text())
+                    .then(html => {
+                        document.querySelector('#quickViewModal .modal-body').innerHTML = html;
+                        new bootstrap.Modal(document.getElementById('quickViewModal')).show();
+                    });
+            });
+        });
+
+        // Wishlist Functionality
+        document.querySelectorAll('.wishlist-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.dataset.productId;
+                // Implement wishlist toggle
+                this.classList.toggle('active');
+            });
+        });
+    });
+</script>
+
+{% endblock %}

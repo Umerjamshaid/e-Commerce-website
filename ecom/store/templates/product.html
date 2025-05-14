@@ -1,0 +1,568 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ product.name }} - Product Details</title>
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      
+      .product-gallery img {
+        cursor: pointer;
+        transition: transform 0.3s;
+      }
+      
+      .product-gallery img:hover {
+        transform: scale(1.03);
+      }
+      
+      .thumbnail {
+        opacity: 0.7;
+      }
+      
+      .thumbnail:hover, .thumbnail.active {
+        opacity: 1;
+        border-color: #0d6efd !important;
+      }
+      
+      .quantity-input {
+        width: 70px;
+        text-align: center;
+      }
+      
+      .feature-icon-sm {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1.25rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Product Header -->
+    <header class="bg-dark py-3">
+      <div class="container px-4 px-lg-5">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'store:home' %}" class="text-white">Home</a></li>
+            <li class="breadcrumb-item"><a href="#" class="text-white">Products</a></li>
+            <li class="breadcrumb-item active text-white-50" aria-current="page">{{ product.name }}</li>
+          </ol>
+        </nav>
+      </div>
+    </header>
+    
+    <!-- Product Detail Section -->
+    <section class="py-5">
+      <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5">
+          <!-- Product Images -->
+          <div class="col-md-6">
+            <div class="mb-4 border rounded-3 overflow-hidden">
+              <img id="mainImage" class="img-fluid w-100" src="{{ product.image.url }}" alt="{{ product.name }}" width="400px">
+            </div>
+            <div class="row g-2 product-gallery">
+              <div class="col-3">
+                <img src="https://dummyimage.com/150x150/dee2e6/6c757d.jpg" class="img-fluid thumbnail border rounded active" onclick="changeImage(this)">
+              </div>
+              <div class="col-3">
+                <img src="https://dummyimage.com/150x150/ced4da/6c757d.jpg" class="img-fluid thumbnail border rounded" onclick="changeImage(this)">
+              </div>
+              <div class="col-3">
+                <img src="https://dummyimage.com/150x150/adb5bd/6c757d.jpg" class="img-fluid thumbnail border rounded" onclick="changeImage(this)">
+              </div>
+              <div class="col-3">
+                <img src="https://dummyimage.com/150x150/6c757d/dee2e6.jpg" class="img-fluid thumbnail border rounded" onclick="changeImage(this)">
+              </div>
+            </div>
+          </div>
+          
+          <!-- Product Info -->
+          <div class="col-md-6">
+            <h1>{{ product.name }}</h1>
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" width="400px">
+            <p>Price: ${{ product.price }}</p>
+            
+            <p>Sale Price: ${{ product.sales_price }}</p>
+
+            <p>Description: {{ product.description }}</p>
+            {% if product.is_sale %}
+              <!-- Sale -->
+                    <div class="d-flex justify-content-center small text-warning mb-2">
+                        <div class="bi-star-fill"></div>
+                             &nbsp;&nbsp;Sale!&nbsp;&nbsp;
+                        <div class="bi-star-fill"></div>
+                    </div>
+
+                        <span class="text-muted text-decoration-line-through"></span>
+                       <strike> ${{ product.price }} </strike>
+                        <span class="text-muted text-decoration-line-through"></span>
+                        &nbsp;
+                        <span>${{ product.sales_price }}</span>
+                    {% else %}
+                       <span>${{ product.price }}</span> 
+
+            {% endif %}
+            
+            
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <span class="badge bg-success">In Stock</span>
+            </div>
+            
+            <!-- Rating -->
+            <div class="d-flex align-items-center mb-3">
+              <div class="text-warning me-2">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+              </div>
+              <small class="text-muted">(24 reviews)</small>
+              <a href="#reviews" class="ms-3 small">Write a review</a>
+            </div>
+            
+            <!-- Color Options -->
+            <div class="mb-4">
+              <h5 class="mb-2">Color</h5>
+              <div class="d-flex">
+                <div class="form-check me-3">
+                  <input class="form-check-input" type="radio" name="color" id="colorBlack" checked>
+                  <label class="form-check-label d-flex align-items-center" for="colorBlack">
+                    <span class="color-dot me-1" style="background-color: #212529; width: 20px; height: 20px; border-radius: 50%;"></span>
+                    Black
+                  </label>
+                </div>
+                <div class="form-check me-3">
+                  <input class="form-check-input" type="radio" name="color" id="colorGray">
+                  <label class="form-check-label d-flex align-items-center" for="colorGray">
+                    <span class="color-dot me-1" style="background-color: #6c757d; width: 20px; height: 20px; border-radius: 50%;"></span>
+                    Gray
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="color" id="colorBlue">
+                  <label class="form-check-label d-flex align-items-center" for="colorBlue">
+                    <span class="color-dot me-1" style="background-color: #0d6efd; width: 20px; height: 20px; border-radius: 50%;"></span>
+                    Blue
+                  </label>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Quantity & Add to Cart -->
+            <div class="row g-3 mb-4">
+              <div class="col-md-4">
+                <label for="quantity" class="form-label">Quantity</label>
+                <div class="input-group">
+                  <button class="btn btn-outline-secondary" type="button" onclick="adjustQuantity(-1)">-</button>
+                  <input type="number" class="form-control quantity-input" id="quantity" value="1" min="1">
+                  <button class="btn btn-outline-secondary" type="button" onclick="adjustQuantity(1)">+</button>
+                </div>
+              </div>
+              <div class="col-md-8 d-flex align-items-end">
+                <button class="btn btn-primary w-100 py-2">
+                  <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                </button>
+              </div>
+            </div>
+            
+            <!-- Back to Home Link -->
+            <div class="mt-4">
+              <a href="{% url 'store:home' %}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Back to Home
+              </a>
+            </div>
+            
+            <!-- Quick Features -->
+            <div class="border-top pt-3">
+              <div class="row">
+                <div class="col-6 mb-3">
+                  <div class="d-flex align-items-center">
+                    <div class="feature-icon-sm bg-light text-primary rounded-circle d-flex align-items-center justify-content-center me-2">
+                      <i class="fas fa-truck"></i>
+                    </div>
+                    <div>
+                      <small class="d-block">Free Shipping</small>
+                      <small class="text-muted">On orders over $100</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6 mb-3">
+                  <div class="d-flex align-items-center">
+                    <div class="feature-icon-sm bg-light text-primary rounded-circle d-flex align-items-center justify-content-center me-2">
+                      <i class="fas fa-undo"></i>
+                    </div>
+                    <div>
+                      <small class="d-block">Easy Returns</small>
+                      <small class="text-muted">30-day policy</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="d-flex align-items-center">
+                    <div class="feature-icon-sm bg-light text-primary rounded-circle d-flex align-items-center justify-content-center me-2">
+                      <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div>
+                      <small class="d-block">2-Year Warranty</small>
+                      <small class="text-muted">Manufacturer guarantee</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="d-flex align-items-center">
+                    <div class="feature-icon-sm bg-light text-primary rounded-circle d-flex align-items-center justify-content-center me-2">
+                      <i class="fas fa-headset"></i>
+                    </div>
+                    <div>
+                      <small class="d-block">24/7 Support</small>
+                      <small class="text-muted">Dedicated support</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Product Details Tabs -->
+    <section class="py-5 bg-light">
+      <div class="container px-4 px-lg-5">
+        <ul class="nav nav-tabs mb-4" id="productTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="details-tab" data-bs-toggle="tab" data-bs-target="#details" type="button" role="tab">Details</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="specs-tab" data-bs-toggle="tab" data-bs-target="#specs" type="button" role="tab">Specifications</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab">Reviews</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="shipping-tab" data-bs-toggle="tab" data-bs-target="#shipping" type="button" role="tab">Shipping</button>
+          </li>
+        </ul>
+        <div class="tab-content" id="productTabsContent">
+          <div class="tab-pane fade show active" id="details" role="tabpanel">
+            <div class="row">
+              <div class="col-md-6">
+                <h5>Product Description</h5>
+                <p>{{ product.description }}</p>
+              </div>
+              <div class="col-md-6">
+                <h5>Key Features</h5>
+                <ul>
+                  <li>Ergonomic design with adjustable lumbar support</li>
+                  <li>High-quality mesh back for breathability</li>
+                  <li>Padded seat with high-density foam</li>
+                  <li>360-degree swivel and smooth-rolling casters</li>
+                  <li>Adjustable armrests and seat height</li>
+                  <li>Durable nylon base with chrome finish</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="specs" role="tabpanel">
+            <div class="table-responsive">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <th scope="row">Material</th>
+                    <td>Mesh, PU Leather, Steel</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Dimensions</th>
+                    <td>25.6" W x 27.2" D x 45.3" H</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Seat Height</th>
+                    <td>Adjustable from 16.5" to 20.5"</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Weight Capacity</th>
+                    <td>300 lbs</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Warranty</th>
+                    <td>2 years limited</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Assembly</th>
+                    <td>Required (tools included)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="reviews" role="tabpanel">
+            <div class="mb-4">
+              <h5>Customer Reviews</h5>
+              <div class="d-flex align-items-center mb-3">
+                <div class="me-3">
+                  <span class="h2 mb-0">4.6</span>
+                  <span class="text-muted">/5</span>
+                </div>
+                <div>
+                  <div class="text-warning mb-1">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                  </div>
+                  <small class="text-muted">Based on 24 reviews</small>
+                </div>
+              </div>
+              
+              <div class="row align-items-center mb-2">
+                <div class="col-2 text-end">
+                  <small>5 stars</small>
+                </div>
+                <div class="col-8">
+                  <div class="progress" style="height: 8px;">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: 70%"></div>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <small class="text-muted">16</small>
+                </div>
+              </div>
+              <div class="row align-items-center mb-2">
+                <div class="col-2 text-end">
+                  <small>4 stars</small>
+                </div>
+                <div class="col-8">
+                  <div class="progress" style="height: 8px;">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: 20%"></div>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <small class="text-muted">5</small>
+                </div>
+              </div>
+              <div class="row align-items-center mb-2">
+                <div class="col-2 text-end">
+                  <small>3 stars</small>
+                </div>
+                <div class="col-8">
+                  <div class="progress" style="height: 8px;">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: 5%"></div>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <small class="text-muted">2</small>
+                </div>
+              </div>
+              <div class="row align-items-center mb-2">
+                <div class="col-2 text-end">
+                  <small>2 stars</small>
+                </div>
+                <div class="col-8">
+                  <div class="progress" style="height: 8px;">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: 0%"></div>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <small class="text-muted">0</small>
+                </div>
+              </div>
+              <div class="row align-items-center">
+                <div class="col-2 text-end">
+                  <small>1 star</small>
+                </div>
+                <div class="col-8">
+                  <div class="progress" style="height: 8px;">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: 5%"></div>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <small class="text-muted">1</small>
+                </div>
+              </div>
+            </div>
+            
+            <div class="border-top pt-4">
+              <h5 class="mb-4">Write a Review</h5>
+              <form>
+                <div class="mb-3">
+                  <label class="form-label">Rating</label>
+                  <div class="rating-input">
+                    <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 stars">☆</label>
+                    <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 stars">☆</label>
+                    <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 stars">☆</label>
+                    <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 stars">☆</label>
+                    <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star">☆</label>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="reviewTitle" class="form-label">Review Title</label>
+                  <input type="text" class="form-control" id="reviewTitle">
+                </div>
+                <div class="mb-3">
+                  <label for="reviewText" class="form-label">Your Review</label>
+                  <textarea class="form-control" id="reviewText" rows="4"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Review</button>
+              </form>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="shipping" role="tabpanel">
+            <h5>Shipping Information</h5>
+            <p>We offer free standard shipping on all orders over $100. For orders under $100, a flat shipping fee of $9.99 applies.</p>
+            <p>Estimated delivery times:</p>
+            <ul>
+              <li>Standard Shipping: 3-5 business days</li>
+              <li>Express Shipping: 1-2 business days (additional $14.99)</li>
+            </ul>
+            <p>We ship to all 50 U.S. states. International shipping available for select countries.</p>
+            <div class="alert alert-info">
+              <i class="fas fa-info-circle me-2"></i> Due to high demand, some items may experience shipping delays of 1-2 additional days.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Related Products -->
+    <section class="py-5">
+      <div class="container px-4 px-lg-5">
+        <h2 class="fw-bolder mb-4">Related products</h2>
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+          <!-- Related Product 1 -->
+          <div class="col mb-5">
+            <div class="card h-100">
+              <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <h5 class="fw-bolder">Executive Office Chair</h5>
+                  <div class="d-flex justify-content-center small text-warning mb-2">
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                  </div>
+                  $249.99
+                </div>
+              </div>
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+              </div>
+            </div>
+          </div>
+          <!-- Related Product 2 -->
+          <div class="col mb-5">
+            <div class="card h-100">
+              <div class="badge bg-danger position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+              <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <h5 class="fw-bolder">Standing Desk Converter</h5>
+                  <div class="d-flex justify-content-center small text-warning mb-2">
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star"></div>
+                  </div>
+                  <span class="text-muted text-decoration-line-through">$199.00</span>
+                  $159.99
+                </div>
+              </div>
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+              </div>
+            </div>
+          </div>
+          <!-- Related Product 3 -->
+          <div class="col mb-5">
+            <div class="card h-100">
+              <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <h5 class="fw-bolder">Monitor Arm Mount</h5>
+                  <div class="d-flex justify-content-center small text-warning mb-2">
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-half-alt"></div>
+                  </div>
+                  $89.99
+                </div>
+              </div>
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+              </div>
+            </div>
+          </div>
+          <!-- Related Product 4 -->
+          <div class="col mb-5">
+            <div class="card h-100">
+              <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="...">
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <h5 class="fw-bolder">Ergonomic Keyboard</h5>
+                  <div class="d-flex justify-content-center small text-warning mb-2">
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star"></div>
+                    <div class="bi-star"></div>
+                  </div>
+                  $79.99
+                </div>
+              </div>
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // Change main product image when thumbnail is clicked
+      function changeImage(element) {
+        const mainImage = document.getElementById('mainImage');
+        mainImage.src = element.src;
+        
+        // Update active thumbnail
+        document.querySelectorAll('.thumbnail').forEach(thumb => {
+          thumb.classList.remove('active');
+        });
+        element.classList.add('active');
+      }
+      
+      // Adjust quantity
+      function adjustQuantity(change) {
+        const quantityInput = document.getElementById('quantity');
+        let newValue = parseInt(quantityInput.value) + change;
+        if (newValue < 1) newValue = 1;
+        quantityInput.value = newValue;
+      }
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
+{% endblock %}
