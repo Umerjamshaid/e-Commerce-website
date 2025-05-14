@@ -1,5 +1,8 @@
-# 🛍️ DjangoShop Pro - Modern E-Commerce Platform
+<p align="center">
+  <img src="https://github.com/yourusername/django-ecommerce/blob/main/docs/banner.png?raw=true" alt="DjangoShop Pro Banner">
+</p>
 
+# 🛍️ DjangoShop Pro - Modern E-Commerce Platform
 ![Django Version](https://img.shields.io/badge/django-4.2-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Python Version](https://img.shields.io/badge/python-3.10%2B-blue)
