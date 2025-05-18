@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Cart Header -->
+<header class="bg-dark py-5 position-relative">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Shopping Cart</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Review your items</p>
+        </div>
+        <!-- Breadcrumb Navigation -->
+        <nav aria-label="breadcrumb" class="mt-4">
+            <ol class="breadcrumb justify-content-center">
+                <li class="breadcrumb-item"><a href="{% url 'store:home' %}" class="text-white">Home</a></li>
+                <li class="breadcrumb-item active text-white-50" aria-current="page">Cart</li>
+            </ol>
+        </nav>
+    </div>
+</header>
+
+<!-- Cart Section -->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-5">
+            <!-- Cart Items -->
+            <div class="col-lg-8">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="mb-0">Your Items ({{ cart_items|length }})</h5>
+                    </div>
+                    <div class="card-body">
+                        {% for item in cart_items %}
+                        <div class="row mb-4 align-items-center border-bottom pb-3">
+                            <div class="col-md-3">
+                                <img src="{{ item.product.image.url }}" 
+                                     alt="{{ item.product.name }}" 
+                                     class="img-fluid rounded-3"
+                                     loading="lazy">
+                            </div>
+                            <div class="col-md-5">
+                                <h5 class="mb-1">{{ item.product.name }}</h5>
+                                <p class="small text-muted mb-2">
+                                    SKU: {{ item.product.sku }}
+                                </p>
+                                <div class="d-flex align-items-center">
+                                    <form class="quantity-form" data-item-id="{{ item.id }}">
+                                        <div class="input-group input-group-sm" style="width: 120px;">
+                                            <button class="btn btn-outline-dark" type="button" data-action="decrement">
+                                                −
+                                            </button>
+                                            <input type="number" 
+                                                   class="form-control text-center" 
+                                                   value="{{ item.quantity }}" 
+                                                   min="1"
+                                                   aria-label="Quantity">
+                                            <button class="btn btn-outline-dark" type="button" data-action="increment">
+                                                +
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <button class="btn btn-link text-danger ms-3" 
+                                            data-bs-toggle="tooltip" 
+                                            title="Remove item"
+                                            data-remove-item="{{ item.id }}">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <p class="mb-0">
+                                    <span class="text-muted">${{ item.product.price }} each</span><br>
+                                    <strong>${{ item.total_price }}</strong>
+                                </p>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="text-center py-5">
+                            <h4 class="text-muted">Your cart is empty</h4>
+                            <a href="{% url 'store:home' %}" class="btn btn-dark mt-3">
+                                Continue Shopping
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="col-lg-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="mb-0">Order Summary</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>Subtotal:</span>
+                            <span>${{ order_total|floatformat:2 }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>Shipping:</span>
+                            <span>${{ shipping|floatformat:2 }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-4">
+                            <span>Tax ({{ tax_rate }}%):</span>
+                            <span>${{ tax|floatformat:2 }}</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between fw-bold mb-4">
+                            <span>Total:</span>
+                            <span>${{ grand_total|floatformat:2 }}</span>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .quantity-form .input-group {
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .quantity-form button {
+        width: 40px;
+    }
+    .quantity-form input {
+        border-color: #dee2e6;
+    }
+    .quantity-form input:focus {
+        box-shadow: none;
+        border-color: #212529;
+    }
+    .bi-trash {
+        transition: color 0.2s ease;
+    }
+    .bi-trash:hover {
+        color: #dc3545 !important;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Quantity Adjustment
+        document.querySelectorAll('.quantity-form button').forEach(button => {
+            button.addEventListener('click', function() {
+                const input = this.parentElement.querySelector('input');
+                let value = parseInt(input.value);
+                
+                if (this.dataset.action === 'increment') {
+                    value++;
+                } else {
+                    value = value > 1 ? value - 1 : 1;
+                }
+                
+                input.value = value;
+                
+                // Add AJAX update here
+                const itemId = this.closest('.quantity-form').dataset.itemId;
+                updateCartItem(itemId, value);
+            });
+        });
+
+        // Remove Item
+        document.querySelectorAll('[data-remove-item]').forEach(button => {
+            button.addEventListener('click', function() {
+                const itemId = this.dataset.removeItem;
+                if (confirm('Are you sure you want to remove this item?')) {
+                    // Add AJAX removal here
+                    removeCartItem(itemId);
+                }
+            });
+        });
+
+        // Update Cart Item Function
+        function updateCartItem(itemId, quantity) {
+            fetch(`/cart/update/${itemId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({quantity: quantity})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload(); // Or update totals dynamically
+                }
+            });
+        }
+
+        // Remove Cart Item Function
+        function removeCartItem(itemId) {
+            fetch(`/cart/remove/${itemId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload(); // Or remove item from DOM
+                }
+            });
+        }
+    });
+</script>
+
+{% endblock %}
